@@ -12,8 +12,11 @@ bool isOn = 0;      //0 = off, 1 = on, buzzes
 #define A_X = 3
 #define A_Y = 4
 #define A_Z = 5
+//raw values from analog channels
 float analogX = 0; int analogY = 0; int analogZ = 0;
-float volX = 0.0; float volY = 0.0; float volZ = 0.0;  
+//voltages
+float volX = 0.0; float volY = 0.0; float volZ = 0.0;
+//g's
 float g_x = 0.0; float g_y = 0.0;float g_z = 0.0; 
 
 //averages used for calibrating while no buzz
@@ -79,6 +82,11 @@ void readMeter() {
   volX = analogX * (5.0 / 1024.0);
   volY = analogY * (5.0 / 1024.0);
   volZ = analogZ * (5.0 / 1024.0);
+
+  //adjust voltages down by 11%
+  volX = volX - (.11*volX);
+  volY = volY - (.11*volY);
+  volZ = volZ - (.11*volZ);
 }
 void getGValues(){
   /*this is made for static acceleration, using side view numbers from technical drawing provided by DFRobot
